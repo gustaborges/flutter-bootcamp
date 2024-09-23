@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:meals_app/dummy_data.dart';
-import 'package:meals_app/screens/categories_screen.dart';
+import 'package:meals_app/screens/home/tabs.dart';
+import 'package:meals_app/utils/favorite_meals_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(const MealsApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  var prefs = await SharedPreferences.getInstance();
+  var favoritesManager = FavoriteMealsManager(prefs);
+  runApp(MealsApp(favoritesManager: favoritesManager));
 }
 
 final theme = ThemeData(
@@ -16,20 +20,16 @@ final theme = ThemeData(
 );
 
 class MealsApp extends StatelessWidget {
-  final String e = "";
-  final String e2 = "";
+  final FavoriteMealsManager favoritesManager;
 
-  const MealsApp({super.key});
+  const MealsApp({super.key, required this.favoritesManager});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Meals',
       theme: theme,
-      home: const CategoriesScreen(
-        title: 'Select a category',
-        categories: availableCategories,
-      ),
+      home: Tabs(favoritesManager: favoritesManager),
     );
   }
 }

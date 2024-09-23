@@ -1,31 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/dummy_data.dart';
 import 'package:meals_app/models/category.dart';
-import 'package:meals_app/screens/meals_screen.dart';
+import 'package:meals_app/screens/meals/meals_screen.dart';
+import 'package:meals_app/utils/favorite_meals_manager.dart';
 import 'package:meals_app/widgets/categories_grid.dart';
 
-class CategoriesScreen extends StatelessWidget {
-  final String title;
+class CategoriesTab extends StatelessWidget {
   final List<Category> categories;
+  final FavoriteMealsManager favoritesManager;
 
-  const CategoriesScreen({
-    super.key,
-    required this.title,
-    required this.categories,
-  });
+  const CategoriesTab(
+      {super.key, required this.categories, required this.favoritesManager});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: CategoriesGrid(
-          categories: categories,
-          onSelectCategory: (category) {
-            _goToMealsScreen(context, category);
-          }),
-    );
+    return CategoriesGrid(
+        categories: categories,
+        onSelectCategory: (category) {
+          _goToMealsScreen(context, category);
+        });
   }
 
   void _goToMealsScreen(BuildContext context, Category category) {
@@ -38,6 +31,7 @@ class CategoriesScreen extends StatelessWidget {
         return MealsScreen(
           title: category.title,
           meals: filteredMeals,
+          favoritesManager: favoritesManager,
         );
       }),
     );

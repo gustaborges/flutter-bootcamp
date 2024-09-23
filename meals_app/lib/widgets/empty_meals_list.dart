@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class EmptyMealsList extends StatelessWidget {
-  const EmptyMealsList({super.key});
+  final String title;
+  final String? subtitle;
+
+  const EmptyMealsList({super.key, required this.title, this.subtitle});
 
   @override
   Widget build(BuildContext context) {
@@ -14,15 +17,16 @@ class EmptyMealsList extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .headlineLarge!
-                .copyWith(color: Theme.of(context).colorScheme.onBackground),
+                .copyWith(color: Theme.of(context).colorScheme.onSurface),
           ),
-          Text(
-            'Try selecting a different category',
-            style: Theme.of(context)
-                .textTheme
-                .bodyLarge!
-                .copyWith(color: Theme.of(context).colorScheme.onBackground),
-          ),
+          if (subtitle != null)
+            Text(
+              'Try selecting a different category',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge!
+                  .copyWith(color: Theme.of(context).colorScheme.onSurface),
+            ),
         ],
       ),
     );
