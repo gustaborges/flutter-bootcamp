@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/models/meal.dart';
-import 'package:meals_app/screens/meals/meal_details_screen.dart';
+import 'package:meals_app/ui/common/empty_list_message.dart';
+import 'package:meals_app/ui/features/meals_catalog/details/meal_details_screen.dart';
+import 'package:meals_app/ui/features/meals_catalog/list/meal_list_item.dart';
 import 'package:meals_app/utils/favorite_meals_manager.dart';
-import 'package:meals_app/widgets/empty_meals_list.dart';
-import 'package:meals_app/widgets/meal_list_item.dart';
 
 class MealsList extends StatefulWidget {
   final List<Meal> Function() fetchMeals;
@@ -27,7 +27,7 @@ class _MealsListState extends State<MealsList> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     if (_meals.isEmpty) {
-      return const EmptyMealsList(
+      return const EmptyListMessage(
         title: 'Uh oh... nothing here!',
         subtitle: 'Try selecting a different category',
       );

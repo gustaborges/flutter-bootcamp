@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/models/meal.dart';
-import 'package:meals_app/widgets/meal_item_metadata.dart';
+import 'package:meals_app/ui/features/meals_catalog/list/meal_item_metadata.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MealListItem extends StatelessWidget {
@@ -23,18 +23,20 @@ class MealListItem extends StatelessWidget {
         vertical: 6,
         horizontal: 12,
       ),
+      // Crops what exceeds the shape of the card (the picture does)
       clipBehavior: Clip.antiAlias,
       child: Stack(
         children: [
-          Expanded(
-            child: FadeInImage(
-              height: 200,
-              width: double.infinity,
-              fit: BoxFit.cover,
-              placeholder: MemoryImage(kTransparentImage),
-              image: NetworkImage(meal.imageUrl),
-            ),
+          // Picture of the meal
+          FadeInImage(
+            height: 200,
+            width: double.infinity,
+            fit: BoxFit.cover,
+            image: NetworkImage(meal.imageUrl),
+            // We a transparent image provided by a lib as placeholder
+            placeholder: MemoryImage(kTransparentImage),
           ),
+          // Positioned widget (bottom) that contains the meal's metadata
           Positioned(
             left: 0,
             right: 0,
@@ -58,6 +60,7 @@ class MealListItem extends StatelessWidget {
               ),
             ),
           ),
+          // Positioned widget on top of everything that is responsible for the splash effect
           Positioned.fill(
             child: Material(
               color: Colors.transparent,

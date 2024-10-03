@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:meals_app/ui/features/meals_catalog/list/meals_list.dart';
 import 'package:meals_app/utils/favorite_meals_manager.dart';
-import 'package:meals_app/widgets/meals_list.dart';
 
 class FavoritesTab extends StatefulWidget {
   final FavoriteMealsManager favoritesManager;

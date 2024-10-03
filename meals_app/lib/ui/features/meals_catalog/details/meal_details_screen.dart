@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/models/meal.dart';
+import 'package:meals_app/ui/features/meals_catalog/details/favorite_meal_button.dart';
 import 'package:meals_app/utils/favorite_meals_manager.dart';
-import 'package:meals_app/widgets/favorite_meal_button.dart';
 
 class MealDetailsScreen extends StatefulWidget {
   final String title;
@@ -53,37 +53,38 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                 padding: const EdgeInsets.all(15),
                 child: Text(
                   'Ingredients',
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontWeight: FontWeight.bold),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall!
+                      .copyWith(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold),
                 ),
               ),
               for (final ingredient in widget.meal.ingredients)
                 Text(
                   ingredient,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(color: Theme.of(context).colorScheme.onSurface),
+                  style:
+                      Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSurface),
                 ),
               Padding(
                 padding: const EdgeInsets.all(15),
                 child: Text(
                   'Steps',
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontWeight: FontWeight.bold),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall!
+                      .copyWith(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold),
                 ),
               ),
               for (int i = 0; i < widget.meal.steps.length; i++)
                 Container(
                   width: double.infinity,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Text(
                     '${i + 1}. ${widget.meal.steps[i]}',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        color: Theme.of(context).colorScheme.onSurface),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(color: Theme.of(context).colorScheme.onSurface),
                   ),
                 ),
               const SizedBox(height: 30)

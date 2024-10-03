@@ -43,8 +43,7 @@ class _FavoriteMealButtonState extends State<FavoriteMealButton> {
   }
 
   void _toggleFavorite(BuildContext context) {
-    bool isFavorite =
-        widget.favoritesManager.toggleFavoriteAsync(widget.mealId);
+    bool isFavorite = widget.favoritesManager.toggleFavoriteAsync(widget.mealId);
 
     setState(() {
       _isFavorite = isFavorite;
@@ -53,8 +52,7 @@ class _FavoriteMealButtonState extends State<FavoriteMealButton> {
     widget.onToggleFavorite?.call();
 
     if (context.mounted) {
-      String toastMessage =
-          isFavorite ? 'Added to favorites' : 'Removed from favorites';
+      String toastMessage = isFavorite ? 'Added to favorites' : 'Removed from favorites';
 
       var snackBar = SnackBar(
         content: Text(toastMessage),
