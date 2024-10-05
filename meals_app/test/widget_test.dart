@@ -8,17 +8,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:meals_app/main.dart';
-import 'package:meals_app/utils/favorite_meals_manager.dart';
-import 'package:meals_app/utils/filters_manager.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    var prefs = await SharedPreferences.getInstance();
-    var favoritesManager = FavoriteMealsManager(prefs);
-    var filtersManager = FiltersManager(prefs);
-    await tester.pumpWidget(MealsApp(favoritesManager, filtersManager));
+    await tester.pumpWidget(const MealsApp());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

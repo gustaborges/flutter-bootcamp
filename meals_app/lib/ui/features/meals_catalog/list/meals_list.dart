@@ -3,16 +3,13 @@ import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/ui/common/empty_list_message.dart';
 import 'package:meals_app/ui/features/meals_catalog/details/meal_details_screen.dart';
 import 'package:meals_app/ui/features/meals_catalog/list/meal_list_item.dart';
-import 'package:meals_app/utils/favorite_meals_manager.dart';
 
 class MealsList extends StatefulWidget {
   final List<Meal> Function() fetchMeals;
-  final FavoriteMealsManager favoritesManager;
   final bool shouldRefreshWhenFavoriteChanges;
 
   const MealsList({
     required this.fetchMeals,
-    required this.favoritesManager,
     this.shouldRefreshWhenFavoriteChanges = false,
     super.key,
   });
@@ -21,7 +18,7 @@ class MealsList extends StatefulWidget {
   State<MealsList> createState() => _MealsListState();
 }
 
-class _MealsListState extends State<MealsList> with WidgetsBindingObserver {
+class _MealsListState extends State<MealsList> {
   List<Meal> _meals = [];
 
   @override
@@ -58,7 +55,6 @@ class _MealsListState extends State<MealsList> with WidgetsBindingObserver {
         return MealDetailsScreen(
           title: meal.title,
           meal: meal,
-          favoritesManager: widget.favoritesManager,
         );
       }),
     );

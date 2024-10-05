@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/ui/features/meals_catalog/details/favorite_meal_button.dart';
-import 'package:meals_app/utils/favorite_meals_manager.dart';
 
 class MealDetailsScreen extends StatefulWidget {
   final String title;
   final Meal meal;
-  final FavoriteMealsManager favoritesManager;
 
   const MealDetailsScreen({
     super.key,
     required this.title,
     required this.meal,
-    required this.favoritesManager,
   });
 
   @override
@@ -39,7 +36,6 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
               onToggleFavorite: () {
                 _favoriteHasChanged = true;
               },
-              favoritesManager: widget.favoritesManager,
             )
           ],
         ),

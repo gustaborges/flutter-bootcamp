@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app/dummy_data.dart';
 import 'package:meals_app/ui/features/filters/filters_screen.dart';
 import 'package:meals_app/ui/features/home/categories/categories_tab.dart';
 import 'package:meals_app/ui/features/home/drawer/main_drawer.dart';
 import 'package:meals_app/ui/features/home/favorites/favorites_tab.dart';
-import 'package:meals_app/utils/favorite_meals_manager.dart';
-import 'package:meals_app/utils/filters_manager.dart';
 
 class TabContent {
   final String title;
@@ -15,14 +12,7 @@ class TabContent {
 }
 
 class Tabs extends StatefulWidget {
-  final FavoriteMealsManager favoritesManager;
-  final FiltersManager filtersManager;
-
-  const Tabs({
-    super.key,
-    required this.favoritesManager,
-    required this.filtersManager,
-  });
+  const Tabs({super.key});
 
   @override
   State<Tabs> createState() => _TabsState();
@@ -41,7 +31,6 @@ class _TabsState extends State<Tabs> {
       ),
       drawer: MainDrawer(
         onDrawerItemSelected: _onDrawerItemSelected,
-        filtersManager: widget.filtersManager,
       ),
       body: tabContent.widget,
       bottomNavigationBar: BottomNavigationBar(
@@ -73,7 +62,7 @@ class _TabsState extends State<Tabs> {
         {
           Navigator.of(context).pop();
           var result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return FiltersScreen(widget.filtersManager);
+            return const FiltersScreen();
           }));
 
           if (result == 'refresh') {
@@ -90,17 +79,12 @@ class _TabsState extends State<Tabs> {
       case 0:
         return TabContent(
           title: 'Categories',
-          widget: CategoriesTab(
-            categories: availableCategories,
-            favoritesManager: widget.favoritesManager,
-          ),
+          widget: const CategoriesTab(),
         );
       default:
         return TabContent(
           title: 'Favorites',
-          widget: FavoritesTab(
-            favoritesManager: widget.favoritesManager,
-          ),
+          widget: const FavoritesTab(),
         );
     }
   }

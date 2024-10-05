@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:meals_app/ui/features/home/tabs.dart';
-import 'package:meals_app/utils/favorite_meals_manager.dart';
-import 'package:meals_app/utils/filters_manager.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-Future<void> main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  var prefs = await SharedPreferences.getInstance();
-  var favoritesManager = FavoriteMealsManager(prefs);
-  var filtersManager = FiltersManager(prefs);
-
-  runApp(MealsApp(favoritesManager, filtersManager));
+  runApp(
+    const ProviderScope(
+      child: MealsApp(),
+    ),
+  );
 }
 
 final theme = ThemeData(
@@ -23,17 +21,14 @@ final theme = ThemeData(
 );
 
 class MealsApp extends StatelessWidget {
-  final FavoriteMealsManager favoritesManager;
-  final FiltersManager filtersManager;
-
-  const MealsApp(this.favoritesManager, this.filtersManager, {super.key});
+  const MealsApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Meals',
       theme: theme,
-      home: Tabs(favoritesManager: favoritesManager, filtersManager: filtersManager),
+      home: const Tabs(),
     );
   }
 }

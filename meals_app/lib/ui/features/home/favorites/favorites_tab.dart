@@ -1,27 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meals_app/providers/favorites_notifier_provider.dart';
 import 'package:meals_app/ui/features/meals_catalog/list/meals_list.dart';
-import 'package:meals_app/utils/favorite_meals_manager.dart';
 
-class FavoritesTab extends StatefulWidget {
-  final FavoriteMealsManager favoritesManager;
-
-  const FavoritesTab({
-    super.key,
-    required this.favoritesManager,
-  });
+class FavoritesTab extends ConsumerStatefulWidget {
+  const FavoritesTab({super.key});
 
   @override
-  State<FavoritesTab> createState() => _FavoritesTabState();
+  ConsumerState<FavoritesTab> createState() => _FavoritesTabState();
 }
 
-class _FavoritesTabState extends State<FavoritesTab> {
+class _FavoritesTabState extends ConsumerState<FavoritesTab> {
   @override
   Widget build(BuildContext context) {
     return MealsList(
       fetchMeals: () {
-        return widget.favoritesManager.getFavorites();
+        var favorites = ref.read(favoritesProvider);
+        return favorites;
       },
-      favoritesManager: widget.favoritesManager,
       shouldRefreshWhenFavoriteChanges: true,
     );
   }

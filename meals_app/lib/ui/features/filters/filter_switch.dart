@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meals_app/providers/filters_notifier_provider.dart';
 import 'package:meals_app/utils/filter.dart';
-import 'package:meals_app/utils/filters_manager.dart';
 
-class FilterSwitch extends StatefulWidget {
+class FilterSwitch extends ConsumerStatefulWidget {
   final String title;
   final String subtitle;
   final Filter filter;
-  final FiltersManager filtersManager;
 
   const FilterSwitch({
     required this.title,
     required this.subtitle,
     required this.filter,
-    required this.filtersManager,
     super.key,
   });
 
   @override
-  State<FilterSwitch> createState() => _FilterSwitchState();
+  ConsumerState<FilterSwitch> createState() => _FilterSwitchState();
 }
 
-class _FilterSwitchState extends State<FilterSwitch> {
+class _FilterSwitchState extends ConsumerState<FilterSwitch> {
   @override
   Widget build(BuildContext context) {
+    final filters = ref.watch(filtersProvider);
+
     return SwitchListTile(
       title: Text(
         widget.title,
@@ -34,11 +35,10 @@ class _FilterSwitchState extends State<FilterSwitch> {
       ),
       activeColor: Theme.of(context).colorScheme.tertiary,
       contentPadding: const EdgeInsets.only(left: 30, right: 22),
-      value: widget.filtersManager.isActive(widget.filter),
+      value: filters[widget.filter] ?? false,
       onChanged: (isChecked) {
-        setState(() {
-          widget.filtersManager.setValue(widget.filter, isChecked);
-        });
+        final filters = ref.read(filtersProvider.notifier);
+        filters.setValue(widget.filter, isChecked);
       },
     );
   }

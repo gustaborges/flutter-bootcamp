@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app/utils/filters_manager.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meals_app/providers/filters_notifier_provider.dart';
 
-class MainDrawer extends StatelessWidget {
+class MainDrawer extends ConsumerWidget {
   final void Function(String identifier) onDrawerItemSelected;
-  final FiltersManager filtersManager;
 
   const MainDrawer({
     super.key,
     required this.onDrawerItemSelected,
-    required this.filtersManager,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Drawer(
       child: Column(
         children: [
           _buildDrawerHeader(context),
-          ..._buildDrawerContent(context),
+          ..._buildDrawerContent(context, ref),
         ],
       ),
     );
   }
 
-  List<Widget> _buildDrawerContent(BuildContext context) {
-    final filtersCount = filtersManager.countActiveFilters();
+  List<Widget> _buildDrawerContent(BuildContext context, WidgetRef ref) {
+    final filters = ref.watch(filtersProvider.notifier);
+    final activeFiltersCount = filters.countActiveFilters();
 
     return [
       // Meals Menu Entry
@@ -60,8 +60,8 @@ class MainDrawer extends StatelessWidget {
               ),
         ),
         trailing: Badge.count(
-          count: filtersCount,
-          isLabelVisible: filtersCount > 0,
+          count: activeFiltersCount,
+          isLabelVisible: activeFiltersCount > 0,
           largeSize: 25,
           textStyle: Theme.of(context).textTheme.labelLarge,
         ),
